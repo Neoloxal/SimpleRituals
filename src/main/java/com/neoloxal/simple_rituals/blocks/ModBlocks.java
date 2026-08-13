@@ -8,6 +8,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -19,11 +20,15 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> CENTRAL_PEDESTAL = registerBlock("central_pedestal", () -> new CentralPedestal(BlockBehaviour.Properties.of()
             .requiresCorrectToolForDrops()
+            .strength(6)
+            .mapColor(MapColor.STONE)
             .noOcclusion()
     ));
 
     public static final DeferredBlock<Block> PEDESTAL = registerBlock("pedestal", () -> new PedestalBlock(BlockBehaviour.Properties.of()
             .requiresCorrectToolForDrops()
+            .strength(6)
+            .mapColor(MapColor.COLOR_MAGENTA)
             .noOcclusion()
     ));
 

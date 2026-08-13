@@ -13,7 +13,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        //zsimpleBlockItem(ModBlocks.CENTRAL_PEDESTAL.get());
+        simpleBlockItem(ModBlocks.CENTRAL_PEDESTAL.get());
         simpleBlockItem(ModBlocks.PEDESTAL.get());
     }
 }

@@ -18,13 +18,13 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.neoforged.neoforge.client.model.data.ModelData;
-import org.lwjgl.opengl.GPU_DEVICE;
 
 public class PedestalBlockEntityRender implements BlockEntityRenderer<PedestalBlockEntity> {
     public PedestalBlockEntityRender(BlockEntityRendererProvider.Context context) {
@@ -36,7 +36,7 @@ public class PedestalBlockEntityRender implements BlockEntityRenderer<PedestalBl
                 ResourceLocation.fromNamespaceAndPath(SimpleRituals.MODID, "block/magic_layer_none"));
         if (pedestalBlockEntity.central) {
             model = ModelResourceLocation.standalone(
-                    ResourceLocation.fromNamespaceAndPath(SimpleRituals.MODID, "block/magic_layer_none"));
+                    ResourceLocation.fromNamespaceAndPath(SimpleRituals.MODID, "block/magic_layer_central"));
         } else if (pedestalBlockEntity.magic_level == 0) {
             model = ModelResourceLocation.standalone(
                     ResourceLocation.fromNamespaceAndPath(SimpleRituals.MODID, "block/magic_layer_none"));
@@ -63,9 +63,13 @@ public class PedestalBlockEntityRender implements BlockEntityRenderer<PedestalBl
             poseStack.mulPose(Axis.XP.rotationDegrees(90));
             poseStack.mulPose(Axis.ZP.rotationDegrees((pedestalBlockEntity.randomizer * 15) % 360));
         } else {
+            float itemHeight = 1.5f;
+            if (pedestalBlockEntity.central) {
+                itemHeight = 1.25f;
+            }
             float time = pedestalBlockEntity.getLevel().getGameTime() + pedestalBlockEntity.randomizer + partialTick;
-            poseStack.translate(.5f, 1.5 + Math.sin(time/10) * .1f, .5f);
-            float rotation = time * 2f % 360f;
+            poseStack.translate(.5f, itemHeight + Math.sin(time/10) * .1f, .5f);
+            float rotation = (time + pedestalBlockEntity.randomizer) * 2f % 360f;
             poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
         }
         poseStack.scale(0.5f, 0.5f, 0.5f);
@@ -81,11 +85,13 @@ public class PedestalBlockEntityRender implements BlockEntityRenderer<PedestalBl
         poseStack.pushPose();
         poseStack.translate(0.5f, 0, 0.5f);
         float time = pedestalBlockEntity.getLevel().getGameTime() - pedestalBlockEntity.randomizer + partialTick;
-        poseStack.mulPose(Axis.YP.rotationDegrees(time * (2f * pedestalBlockEntity.magic_level) % 360));
+        if (!pedestalBlockEntity.central) {
+            poseStack.mulPose(Axis.YP.rotationDegrees(time * (2f * pedestalBlockEntity.magic_level) % 360));
+        }
         poseStack.translate(-0.5f, Math.sin(time/(10f / (pedestalBlockEntity.magic_level / 5f))) * .15f , -0.5f);
 
         blockRenderer.renderModel(poseStack.last(), buffer, pedestalBlockEntity.getBlockState(), bakedModel,
-                1.0f, 1.0f, 1.0f, packedLight, packedOverlay, ModelData.EMPTY, RenderType.translucent());
+                1.0f, 1.0f, 1.0f, LightTexture.FULL_BRIGHT, packedOverlay, ModelData.EMPTY, RenderType.translucent());
         poseStack.popPose();
     }
 

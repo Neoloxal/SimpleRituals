@@ -7,6 +7,8 @@ import com.neoloxal.simple_rituals.client.renderer.PedestalBlockEntityRender;
 import com.neoloxal.simple_rituals.items.ModItems;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -33,6 +35,8 @@ public class SimpleRituals {
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
 
+        modEventBus.addListener(this::addCreative);
+
         NeoForge.EVENT_BUS.register(this);
     }
 
@@ -40,6 +44,10 @@ public class SimpleRituals {
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            event.accept(ModBlocks.CENTRAL_PEDESTAL.get());
+            event.insertAfter(ModBlocks.CENTRAL_PEDESTAL.toStack(), ModBlocks.PEDESTAL.toStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        }
     }
 
     @SubscribeEvent
@@ -68,6 +76,9 @@ public class SimpleRituals {
             ));
             event.register(ModelResourceLocation.standalone(
                     ResourceLocation.fromNamespaceAndPath(MODID, "block/magic_layer_none")
+            ));
+            event.register(ModelResourceLocation.standalone(
+                    ResourceLocation.fromNamespaceAndPath(MODID, "block/magic_layer_central")
             ));
             event.register(ModelResourceLocation.standalone(
                     ResourceLocation.fromNamespaceAndPath(MODID, "block/magic_layer_1")

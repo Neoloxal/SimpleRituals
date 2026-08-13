@@ -71,10 +71,9 @@ public class PedestalBlock extends BaseEntityBlock {
 
                 ItemStack toInsert = stack.copy();
                 toInsert.setCount(1);
-                ItemStack remainder = inv.insertItem(0, toInsert, true); // simulate
+                ItemStack remainder = inv.insertItem(0, toInsert, true);
 
                 if (!remainder.isEmpty()) {
-                    // pedestal slot occupied by something that won't merge — swap explicitly
                     ItemStack newPedStack = stack.copy();
                     newPedStack.setCount(1);
                     inv.setStackInSlot(0, newPedStack);
@@ -83,17 +82,40 @@ public class PedestalBlock extends BaseEntityBlock {
                 }
                 stack.shrink(1);
 
-                if (!pedStack.isEmpty()) {
-                    if (player.getItemInHand(hand).isEmpty()) {
-                        player.setItemInHand(hand, pedStack);
-                    } else if (!player.getInventory().add(pedStack)) {
-                        player.drop(pedStack, false);
-                    }
-                }
+                returnStackToPlayer(player, hand, pedStack, inv);
                 player.playNotifySound(SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1f, 1f);
             }
             return ItemInteractionResult.SUCCESS;
         }
         return ItemInteractionResult.FAIL;
+    }
+
+    protected void returnStackToPlayer(Player player, InteractionHand hand, ItemStack pedStack, ItemStackHandler inv) {
+        if (!pedStack.isEmpty()) {
+            if (player.getItemInHand(hand).isEmpty()) {
+                player.setItemInHand(hand, pedStack);
+                return;
+            } else if (ItemStack.isSameItemSameComponents(player.getItemInHand(hand), pedStack)) {
+                player.getItemInHand(hand).grow(1);
+                int itemsLeftInSlot = player.getItemInHand(hand).getMaxStackSize() - player.getItemInHand(hand).getCount();
+                int remainder = pedStack.getCount() - itemsLeftInSlot;
+                inv.setStackInSlot(0, ItemStack.EMPTY);
+                if (remainder >= 0) {
+                    player.getItemInHand(hand).grow(itemsLeftInSlot);
+                    ItemStack updatedPedStack = pedStack.copy();
+                    updatedPedStack.setCount(remainder);
+                    if (remainder > 0) {
+                        if (!player.getInventory().add(updatedPedStack)) {
+                            player.drop(updatedPedStack, false);
+                        }
+                    }
+                    return;
+                }
+                player.getItemInHand(hand).grow(pedStack.getCount());
+            }
+            if (!player.getInventory().add(pedStack)) {
+                player.drop(pedStack, false);
+            }
+        }
     }
 }
