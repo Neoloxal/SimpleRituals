@@ -1,5 +1,6 @@
 package com.neoloxal.simple_rituals.blocks.custom;
 import com.mojang.serialization.MapCodec;
+import com.neoloxal.simple_rituals.SimpleRituals;
 import com.neoloxal.simple_rituals.blocks.entity.PedestalBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -96,15 +97,14 @@ public class PedestalBlock extends BaseEntityBlock {
                 player.setItemInHand(hand, pedStack);
                 return;
             } else if (ItemStack.isSameItemSameComponents(player.getItemInHand(hand), pedStack)) {
-                player.getItemInHand(hand).grow(1);
                 int itemsLeftInSlot = player.getItemInHand(hand).getMaxStackSize() - player.getItemInHand(hand).getCount();
-                int remainder = pedStack.getCount() - itemsLeftInSlot;
+                int overflow = pedStack.getCount() - itemsLeftInSlot;
                 inv.setStackInSlot(0, ItemStack.EMPTY);
-                if (remainder >= 0) {
+                if (overflow >= 0) {
                     player.getItemInHand(hand).grow(itemsLeftInSlot);
                     ItemStack updatedPedStack = pedStack.copy();
-                    updatedPedStack.setCount(remainder);
-                    if (remainder > 0) {
+                    updatedPedStack.setCount(overflow);
+                    if (overflow > 0) {
                         if (!player.getInventory().add(updatedPedStack)) {
                             player.drop(updatedPedStack, false);
                         }
