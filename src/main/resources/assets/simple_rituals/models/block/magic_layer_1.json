@@ -1,0 +1,6 @@
+{
+	"parent": "simple_rituals:block/magic_layer_none",
+	"textures": {
+		"0": "simple_rituals:block/magic_layer_1"
+	}
+}

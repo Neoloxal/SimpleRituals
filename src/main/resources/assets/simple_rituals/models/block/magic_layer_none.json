@@ -1,0 +1,28 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"render_type": "minecraft:cutout",
+	"texture_size": [12, 10],
+	"textures": {
+		"0": "simple_rituals:block/magic_layer_none",
+		"empty": "simple_rituals:block/empty",
+		"particle": "block/stone_bricks"
+	},
+	"elements": [
+		{
+			"name": "Middle",
+			"from": [-1, 2, -1],
+			"to": [17, 12, 17],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9.5, 7, 10]},
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#empty"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#empty"}
+			}
+		}
+	]
+}
