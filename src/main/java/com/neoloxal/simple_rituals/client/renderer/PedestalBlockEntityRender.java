@@ -34,19 +34,19 @@ public class PedestalBlockEntityRender implements BlockEntityRenderer<PedestalBl
     public void render(PedestalBlockEntity pedestalBlockEntity, float partialTick, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, int packedOverlay) {
         ModelResourceLocation model = ModelResourceLocation.standalone(
                 ResourceLocation.fromNamespaceAndPath(SimpleRituals.MODID, "block/magic_layer_none"));
-        if (pedestalBlockEntity.central) {
+        if (pedestalBlockEntity.getCentral()) {
             model = ModelResourceLocation.standalone(
                     ResourceLocation.fromNamespaceAndPath(SimpleRituals.MODID, "block/magic_layer_central"));
-        } else if (pedestalBlockEntity.magic_level == 0) {
+        } else if (pedestalBlockEntity.getMagicLevel() == 0) {
             model = ModelResourceLocation.standalone(
                     ResourceLocation.fromNamespaceAndPath(SimpleRituals.MODID, "block/magic_layer_none"));
-        } else if (pedestalBlockEntity.magic_level == 1) {
+        } else if (pedestalBlockEntity.getMagicLevel() == 1) {
             model = ModelResourceLocation.standalone(
                     ResourceLocation.fromNamespaceAndPath(SimpleRituals.MODID, "block/magic_layer_1"));
-        } else if (pedestalBlockEntity.magic_level == 2) {
+        } else if (pedestalBlockEntity.getMagicLevel() == 2) {
             model = ModelResourceLocation.standalone(
                     ResourceLocation.fromNamespaceAndPath(SimpleRituals.MODID, "block/magic_layer_2"));
-        } else if (pedestalBlockEntity.magic_level == 3) {
+        } else if (pedestalBlockEntity.getMagicLevel() == 3) {
             model = ModelResourceLocation.standalone(
                     ResourceLocation.fromNamespaceAndPath(SimpleRituals.MODID, "block/magic_layer_3"));
         }
@@ -58,18 +58,18 @@ public class PedestalBlockEntityRender implements BlockEntityRenderer<PedestalBl
 
         poseStack.pushPose();
 
-        if (pedestalBlockEntity.magic_level == 0 && !pedestalBlockEntity.central) {
+        if (pedestalBlockEntity.getMagicLevel() == 0 && !pedestalBlockEntity.getCentral()) {
             poseStack.translate(.5f, 1, .5f);
             poseStack.mulPose(Axis.XP.rotationDegrees(90));
-            poseStack.mulPose(Axis.ZP.rotationDegrees((pedestalBlockEntity.randomizer * 15) % 360));
+            poseStack.mulPose(Axis.ZP.rotationDegrees((pedestalBlockEntity.getRandomizer() * 15) % 360));
         } else {
             float itemHeight = 1.5f;
-            if (pedestalBlockEntity.central) {
+            if (pedestalBlockEntity.getCentral()) {
                 itemHeight = 1.25f;
             }
-            float time = pedestalBlockEntity.getLevel().getGameTime() + pedestalBlockEntity.randomizer + partialTick;
+            float time = pedestalBlockEntity.getLevel().getGameTime() + pedestalBlockEntity.getRandomizer() + partialTick;
             poseStack.translate(.5f, itemHeight + Math.sin(time/10) * .1f, .5f);
-            float rotation = (time + pedestalBlockEntity.randomizer) * 2f % 360f;
+            float rotation = (time + pedestalBlockEntity.getRandomizer()) * 2f % 360f;
             poseStack.mulPose(Axis.YP.rotationDegrees(rotation));
         }
         poseStack.scale(0.5f, 0.5f, 0.5f);
@@ -84,11 +84,11 @@ public class PedestalBlockEntityRender implements BlockEntityRenderer<PedestalBl
         RenderSystem.disableCull();
         poseStack.pushPose();
         poseStack.translate(0.5f, 0, 0.5f);
-        float time = pedestalBlockEntity.getLevel().getGameTime() - pedestalBlockEntity.randomizer + partialTick;
-        if (!pedestalBlockEntity.central) {
-            poseStack.mulPose(Axis.YP.rotationDegrees(time * (2f * pedestalBlockEntity.magic_level) % 360));
+        float time = pedestalBlockEntity.getLevel().getGameTime() - pedestalBlockEntity.getRandomizer() + partialTick;
+        if (!pedestalBlockEntity.getCentral()) {
+            poseStack.mulPose(Axis.YP.rotationDegrees(time * (2f * pedestalBlockEntity.getMagicLevel()) % 360));
         }
-        poseStack.translate(-0.5f, Math.sin(time/(10f / (pedestalBlockEntity.magic_level / 5f))) * .15f , -0.5f);
+        poseStack.translate(-0.5f, Math.sin(time/(10f / (pedestalBlockEntity.getMagicLevel() / 5f))) * .15f , -0.5f);
 
         blockRenderer.renderModel(poseStack.last(), buffer, pedestalBlockEntity.getBlockState(), bakedModel,
                 1.0f, 1.0f, 1.0f, LightTexture.FULL_BRIGHT, packedOverlay, ModelData.EMPTY, RenderType.translucent());

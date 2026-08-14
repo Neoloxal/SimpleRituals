@@ -1,0 +1,13 @@
+{
+  "type": "simple_rituals:ritual",
+  "size": 1,
+  "ingredients": [
+    {"tag": "minecraft:wool"},
+    {"tag": "minecraft:wool"}
+  ],
+  "output": {
+    "id": "minecraft:string",
+    "count": 8
+  },
+  "spawn_lightning": false
+}

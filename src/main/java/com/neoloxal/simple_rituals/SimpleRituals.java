@@ -5,6 +5,7 @@ import com.neoloxal.simple_rituals.blocks.ModBlocks;
 import com.neoloxal.simple_rituals.blocks.entity.ModBlockEntities;
 import com.neoloxal.simple_rituals.client.renderer.PedestalBlockEntityRender;
 import com.neoloxal.simple_rituals.items.ModItems;
+import com.neoloxal.simple_rituals.recipe.ModRecipes;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -34,6 +35,8 @@ public class SimpleRituals {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+
+        ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
 

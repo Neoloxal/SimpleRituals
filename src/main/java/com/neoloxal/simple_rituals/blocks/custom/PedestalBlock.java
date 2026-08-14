@@ -60,6 +60,12 @@ public class PedestalBlock extends BaseEntityBlock {
                 ItemStackHandler inv = pedestalBlockEntity.inventory;
                 ItemStack pedStack = inv.getStackInSlot(0).copy();
 
+                if (ItemStack.isSameItemSameComponents(player.getItemInHand(hand), pedStack)) {
+                    returnStackToPlayer(player, hand, pedStack, inv);
+                    player.playNotifySound(SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1f, 1f);
+                    return ItemInteractionResult.SUCCESS;
+                }
+
                 if (stack.isEmpty()) {
                     if (pedStack.isEmpty()) {
                         return ItemInteractionResult.FAIL;
@@ -102,16 +108,16 @@ public class PedestalBlock extends BaseEntityBlock {
                 inv.setStackInSlot(0, ItemStack.EMPTY);
                 if (overflow >= 0) {
                     player.getItemInHand(hand).grow(itemsLeftInSlot);
-                    ItemStack updatedPedStack = pedStack.copy();
-                    updatedPedStack.setCount(overflow);
                     if (overflow > 0) {
+                        ItemStack updatedPedStack = pedStack.copy();
+                        updatedPedStack.setCount(overflow);
                         if (!player.getInventory().add(updatedPedStack)) {
                             player.drop(updatedPedStack, false);
                         }
                     }
                     return;
                 }
-                player.getItemInHand(hand).grow(pedStack.getCount());
+                // player.getItemInHand(hand).grow(pedStack.getCount());
             }
             if (!player.getInventory().add(pedStack)) {
                 player.drop(pedStack, false);

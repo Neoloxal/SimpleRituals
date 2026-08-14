@@ -7,6 +7,7 @@ import com.neoloxal.simple_rituals.items.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
@@ -22,6 +23,7 @@ public class ModBlocks {
             .requiresCorrectToolForDrops()
             .strength(6)
             .mapColor(MapColor.STONE)
+            .sound(SoundType.STONE)
             .noOcclusion()
     ));
 
@@ -29,6 +31,7 @@ public class ModBlocks {
             .requiresCorrectToolForDrops()
             .strength(6)
             .mapColor(MapColor.COLOR_MAGENTA)
+            .sound(SoundType.STONE)
             .noOcclusion()
     ));
 
