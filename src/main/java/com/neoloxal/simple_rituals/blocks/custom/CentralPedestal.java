@@ -209,7 +209,7 @@ public class CentralPedestal extends PedestalBlock {
             }
         }
         if (!level.isClientSide() && amountChanged > 0) {
-            level.playSound(null, pos, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS);
+            level.playSound(null, pos, SoundEvents.ALLAY_ITEM_TAKEN, SoundSource.BLOCKS, 4f, 0.5f);
         }
     }
 

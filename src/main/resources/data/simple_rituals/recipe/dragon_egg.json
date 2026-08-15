@@ -1,0 +1,19 @@
+{
+  "type": "simple_rituals:ritual",
+  "size": 3,
+  "ingredients": [
+    {"item": "minecraft:dragon_egg"},
+    {"item": "minecraft:dragon_head"},
+    {"item": "minecraft:end_crystal"},
+    {"item": "minecraft:end_crystal"},
+    {"item": "minecraft:end_crystal"},
+    {"item": "minecraft:end_crystal"},
+    {"item": "minecraft:nether_star"},
+    {"item": "minecraft:nether_star"}
+  ],
+  "output": {
+    "id": "minecraft:dragon_egg",
+    "count": 2
+  },
+  "spawn_lightning": true
+}
