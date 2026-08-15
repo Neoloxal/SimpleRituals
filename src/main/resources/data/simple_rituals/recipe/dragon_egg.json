@@ -2,14 +2,14 @@
   "type": "simple_rituals:ritual",
   "size": 3,
   "ingredients": [
-    {"item": "minecraft:dragon_egg"},
+    {"item": "minecraft:nether_star"},
+    {"item": "minecraft:end_crystal"},
     {"item": "minecraft:dragon_head"},
     {"item": "minecraft:end_crystal"},
-    {"item": "minecraft:end_crystal"},
-    {"item": "minecraft:end_crystal"},
-    {"item": "minecraft:end_crystal"},
     {"item": "minecraft:nether_star"},
-    {"item": "minecraft:nether_star"}
+    {"item": "minecraft:end_crystal"},
+    {"item": "minecraft:dragon_egg"},
+    {"item": "minecraft:end_crystal"}
   ],
   "output": {
     "id": "minecraft:dragon_egg",

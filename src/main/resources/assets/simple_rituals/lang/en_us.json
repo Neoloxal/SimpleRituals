@@ -1,5 +1,6 @@
 {
   "block.simple_rituals.central_pedestal": "Central Pedestal",
   "block.simple_rituals.pedestal": "Pedestal",
-  "message.simple_rituals.invalid_ritual_recipe_warning": "Invalid ritual!"
+  "message.simple_rituals.invalid_ritual_recipe_warning": "Invalid ritual!",
+  "recipe.simple_rituals.ritual": "Ritual"
 }
