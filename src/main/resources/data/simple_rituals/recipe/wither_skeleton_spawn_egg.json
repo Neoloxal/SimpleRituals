@@ -1,0 +1,19 @@
+{
+  "type": "simple_rituals:ritual",
+  "size": 3,
+  "ingredients": [
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "minecraft:coal"},
+    {"item": "minecraft:skeleton_spawn_egg"},
+    {"item": "minecraft:bone"},
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "minecraft:coal"},
+    {"item": "minecraft:skeleton_spawn_egg"},
+    {"item": "minecraft:bone"}
+  ],
+  "output": {
+    "id": "minecraft:wither_skeleton_spawn_egg",
+    "count": 2
+  },
+  "special_effect": "spawn_lightning"
+}

@@ -2,6 +2,7 @@ package com.neoloxal.simple_rituals.compat;
 
 import com.neoloxal.simple_rituals.SimpleRituals;
 import com.neoloxal.simple_rituals.blocks.ModBlocks;
+import com.neoloxal.simple_rituals.items.ModItems;
 import com.neoloxal.simple_rituals.recipe.RitualRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -86,7 +87,11 @@ public class RitualRecipeCatagory implements IRecipeCategory<RitualRecipe> {
             if (recipe.getRitualIngredients().size() == 8) builder.addSlot(RecipeIngredientRole.INPUT, 10, 54).addIngredients(recipe.getRitualIngredients().get(7));
         }
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 32, 32).addItemStack(recipe.getOutput());
+        if (!recipe.getHideOutput()) {
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 32, 32).addItemStack(recipe.getOutput());
+        } else {
+            builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 32, 32).addItemStack(ModItems.UNKNOWN.toStack());
+        }
     }
 
     @Override
@@ -100,8 +105,12 @@ public class RitualRecipeCatagory implements IRecipeCategory<RitualRecipe> {
             background_large.draw(guiGraphics);
         }
 
-        if (recipe.getSpawnLightning()) {
+        if (!recipe.getSpecialEffect().equals("none")) {
             background_danger.draw(guiGraphics);
+        }
+
+        if (recipe.getHideOutput()) {
+            //guiGraphics.renderFakeItem(ModItems.UNKNOWN.toStack(), 32, 32);
         }
     }
 

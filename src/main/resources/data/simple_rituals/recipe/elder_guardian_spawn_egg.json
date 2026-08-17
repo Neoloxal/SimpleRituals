@@ -1,0 +1,19 @@
+{
+  "type": "simple_rituals:ritual",
+  "size": 3,
+  "ingredients": [
+    {"item": "minecraft:guardian_spawn_egg"},
+    {"item": "minecraft:prismarine_shard"},
+    {"item": "minecraft:prismarine"},
+    {"item": "minecraft:prismarine_shard"},
+    {"item": "minecraft:guardian_spawn_egg"},
+    {"item": "minecraft:prismarine_shard"},
+    {"item": "minecraft:prismarine"},
+    {"item": "minecraft:prismarine_shard"}
+  ],
+  "output": {
+    "id": "minecraft:elder_guardian_spawn_egg",
+    "count": 1
+  },
+  "special_effect": "spawn_lightning"
+}

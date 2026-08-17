@@ -1,0 +1,20 @@
+{
+  "type": "simple_rituals:ritual",
+  "size": 3,
+  "ingredients": [
+    {"item": "minecraft:tnt"},
+    {"item": "minecraft:tnt"},
+    {"item": "minecraft:tnt"},
+    {"item": "minecraft:tnt"},
+    {"item": "minecraft:tnt"},
+    {"item": "minecraft:tnt"},
+    {"item": "minecraft:tnt"},
+    {"item": "minecraft:tnt"}
+  ],
+  "output": {
+    "id": "simple_rituals:unknown",
+    "count": 1
+  },
+  "hide_output": true,
+  "special_effect": "explode"
+}

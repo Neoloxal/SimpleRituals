@@ -1,6 +1,20 @@
 {
   "block.simple_rituals.central_pedestal": "Central Pedestal",
   "block.simple_rituals.pedestal": "Pedestal",
+  
+  "item.simple_rituals.empty_spawn_egg": "Empty Spawn Egg",
+  "item.simple_rituals.unknown": "???",
+
+
   "message.simple_rituals.invalid_ritual_recipe_warning": "Invalid ritual!",
-  "recipe.simple_rituals.ritual": "Ritual"
+
+
+  "recipe.simple_rituals.ritual": "Ritual",
+
+
+  "advancements.simple_rituals.first_ritual.title": "First Ritual",
+  "advancements.simple_rituals.first_ritual.description": "Do your first ritual!",
+
+  "advancements.simple_rituals.max_tier_ritual.title": "Powerful Rituals",
+  "advancements.simple_rituals.max_tier_ritual.description": "Make a large ritual setup."
 }

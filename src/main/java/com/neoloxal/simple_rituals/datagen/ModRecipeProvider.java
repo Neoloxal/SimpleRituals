@@ -19,8 +19,12 @@ public class ModRecipeProvider extends RecipeProvider {
     protected void buildRecipes(RecipeOutput recipeOutput) {
         super.buildRecipes(recipeOutput);
 
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(Items.STONE_BRICKS), RecipeCategory.DECORATIONS, ModBlocks.PEDESTAL.get(), 1)
-                .unlockedBy("has_stone_bricks", has(Items.STONE_BRICKS)).save(recipeOutput, SimpleRituals.MODID + "pedestal");
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ModBlocks.PEDESTAL.get())
+                        .pattern("BBB")
+                        .pattern("LAL")
+                        .pattern("BBB")
+                        .define('B', Items.STONE_BRICKS).define('L', Items.LAPIS_LAZULI).define('A', Items.ANDESITE)
+                        .unlockedBy("has_lapis", has(Items.LAPIS_LAZULI)).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.CENTRAL_PEDESTAL.get())
                 .pattern("LLL")

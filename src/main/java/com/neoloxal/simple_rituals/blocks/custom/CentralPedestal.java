@@ -1,6 +1,7 @@
 package com.neoloxal.simple_rituals.blocks.custom;
 
 import com.neoloxal.simple_rituals.SimpleRituals;
+import com.neoloxal.simple_rituals.advancment.ModAdvancementTriggers;
 import com.neoloxal.simple_rituals.blocks.entity.ModBlockEntities;
 import com.neoloxal.simple_rituals.blocks.entity.PedestalBlockEntity;
 import com.neoloxal.simple_rituals.recipe.ModRecipes;
@@ -10,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -39,9 +41,17 @@ import java.util.Optional;
 
 public class CentralPedestal extends PedestalBlock {
     public static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 12.5f, 16);
+    private Player nearestPlayerOnPlace;
 
     public CentralPedestal(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        nearestPlayerOnPlace = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 10, true);
+        ((PedestalBlockEntity) level.getBlockEntity(pos)).setOwner(nearestPlayerOnPlace);
     }
 
     @Override
@@ -59,7 +69,6 @@ public class CentralPedestal extends PedestalBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        SimpleRituals.LOGGER.debug("Interacting with central pedestal with item");
         if (level.getBlockEntity(pos) instanceof PedestalBlockEntity pedestalBlockEntity) {
             if (pedestalBlockEntity.inventory.getStackInSlot(0).isEmpty()) {
                 if (player.getItemInHand(hand).isEmpty()) {
@@ -87,7 +96,6 @@ public class CentralPedestal extends PedestalBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide()){
-            SimpleRituals.LOGGER.debug("Interacting with central pedestal without item");
             int size = 0;
             List<ItemStack> items = new ArrayList<>();
 
@@ -153,10 +161,14 @@ public class CentralPedestal extends PedestalBlock {
                     pedestalBlockEntity.inventory.setStackInSlot(0, ritual.get().value().assemble(recipeInput, level.registryAccess()));
                     ServerLevel serverLevel = level.getServer().getLevel(level.dimension());
 
-                    if (ritual.get().value().getSpawnLightning()) {
+                    if (ritual.get().value().getSpecialEffect().equals("spawn_lightning")) {
                         EntityType.LIGHTNING_BOLT.spawn(serverLevel, pos, MobSpawnType.TRIGGERED);
                     }
-                    level.playSound(null, pos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1f, 1.5f);
+                    if (ritual.get().value().getSpecialEffect().equals("explode")) {
+                        level.explode(null, pos.getX()+.5, pos.getY() + 1, pos.getZ()+.5, 1.5f * size, Level.ExplosionInteraction.TRIGGER);
+                    } else {
+                        level.playSound(null, pos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1f, 1.5f);
+                    }
 
                     serverLevel.sendParticles(ParticleTypes.END_ROD, pos.getX() + .5, pos.getY() + .9, pos.getZ() + .5,
                             10, .5, .05, .5, .05); // Central Pedestal Particles
@@ -168,6 +180,9 @@ public class CentralPedestal extends PedestalBlock {
                         serverLevel.sendParticles(ParticleTypes.WITCH, pedestalPosition.getX() + .5, pedestalPosition.getY() + 1.5, pedestalPosition.getZ()+ .5,
                                 20, .1, .1, .1, .1); // Side Pedestal Particles
                     }
+
+                    ModAdvancementTriggers.FIRST_RITUAL_TRIGGER.get().trigger((ServerPlayer) player);
+
                     return InteractionResult.SUCCESS;
                 }
             }

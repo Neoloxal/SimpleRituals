@@ -1,0 +1,20 @@
+{
+  "type": "simple_rituals:ritual",
+  "size": 3,
+  "ingredients": [
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "simple_rituals:empty_spawn_egg"}
+  ],
+  "output": {
+    "id": "minecraft:echo_shard",
+    "count": 2
+  },
+  "hide_output": true,
+  "special_effect": "explode"
+}

@@ -20,7 +20,8 @@ public class RitualRecipeSerializer implements RecipeSerializer<RitualRecipe> {
                 Codec.intRange(1, 3).fieldOf("size").forGetter(RitualRecipe::getSize),
                 Codec.list(Ingredient.CODEC, 2, 8).fieldOf("ingredients").forGetter(RitualRecipe::getRitualIngredients),
                 ItemStack.CODEC.fieldOf("output").forGetter(RitualRecipe::getOutput),
-                Codec.BOOL.fieldOf("spawn_lightning").forGetter(RitualRecipe::getSpawnLightning)
+                Codec.STRING.optionalFieldOf("special_effect", "none").forGetter(RitualRecipe::getSpecialEffect),
+                Codec.BOOL.optionalFieldOf("hide_output", false).forGetter(RitualRecipe::getHideOutput)
         ).apply(instance, RitualRecipe::new));
     }
 
@@ -30,7 +31,8 @@ public class RitualRecipeSerializer implements RecipeSerializer<RitualRecipe> {
                 ByteBufCodecs.VAR_INT, RitualRecipe::getSize,
                 Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), RitualRecipe::getRitualIngredients,
                 ItemStack.STREAM_CODEC, RitualRecipe::getOutput,
-                ByteBufCodecs.BOOL, RitualRecipe::getSpawnLightning,
+                ByteBufCodecs.STRING_UTF8, RitualRecipe::getSpecialEffect,
+                ByteBufCodecs.BOOL, RitualRecipe::getHideOutput,
                 RitualRecipe::new
         );
     }

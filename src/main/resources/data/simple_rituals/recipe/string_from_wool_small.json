@@ -8,6 +8,5 @@
   "output": {
     "id": "minecraft:string",
     "count": 8
-  },
-  "spawn_lightning": false
+  }
 }

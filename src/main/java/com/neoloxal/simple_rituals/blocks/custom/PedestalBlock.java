@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class PedestalBlock extends BaseEntityBlock {
     public static final MapCodec<PedestalBlock> CODEC = simpleCodec(PedestalBlock::new);
+    private Player nearestPlayerOnPlace;
 
     public PedestalBlock(Properties properties) {
 		super(properties);
@@ -36,8 +37,17 @@ public class PedestalBlock extends BaseEntityBlock {
     }
 
     @Override
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+
+        nearestPlayerOnPlace = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 10, false);
+        ((PedestalBlockEntity) level.getBlockEntity(pos)).setOwner(nearestPlayerOnPlace);
+    }
+
+    @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new PedestalBlockEntity(blockPos, blockState);
+        PedestalBlockEntity blockEntity = new PedestalBlockEntity(blockPos, blockState);
+        return blockEntity;
     }
 
     @Override

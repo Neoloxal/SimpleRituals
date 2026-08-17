@@ -13,13 +13,15 @@ public class RitualRecipe implements Recipe<RitualRecipeInput> {
     private final int size;
     private final List<Ingredient> ingredients;
     private final ItemStack output;
-    private final boolean spawnLightning;
+    private final String specialEffect;
+    private final Boolean hideOutput;
 
-    public RitualRecipe(int size, List<Ingredient> ingredients, ItemStack output, boolean spawnLightning) {
+    public RitualRecipe(int size, List<Ingredient> ingredients, ItemStack output, String specialEffect, Boolean hideOutput) {
         this.size = size;
         this.ingredients = ingredients;
         this.output = output;
-        this.spawnLightning = spawnLightning;
+        this.specialEffect = specialEffect;
+        this.hideOutput = hideOutput;
     }
 
     @Override
@@ -83,7 +85,11 @@ public class RitualRecipe implements Recipe<RitualRecipeInput> {
         return output;
     }
 
-    public boolean getSpawnLightning() {
-        return spawnLightning;
+    public String getSpecialEffect() {
+        return specialEffect;
+    }
+
+    public Boolean getHideOutput() {
+        return hideOutput;
     }
 }

@@ -15,5 +15,5 @@
     "id": "minecraft:dragon_egg",
     "count": 2
   },
-  "spawn_lightning": true
+  "special_effect": "spawn_lightning"
 }

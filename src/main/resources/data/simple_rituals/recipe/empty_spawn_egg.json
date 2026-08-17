@@ -1,0 +1,19 @@
+{
+  "type": "simple_rituals:ritual",
+  "size": 3,
+  "ingredients": [
+    {"item": "minecraft:egg"},
+    {"item": "minecraft:egg"},
+    {"item": "minecraft:echo_shard"},
+    {"item": "minecraft:egg"},
+    {"item": "minecraft:egg"},
+    {"item": "minecraft:egg"},
+    {"tag": "c:dyes"},
+    {"item": "minecraft:egg"}
+  ],
+  "output": {
+    "id": "simple_rituals:empty_spawn_egg",
+    "count": 8
+  },
+  "special_effect": "spawn_lightning"
+}

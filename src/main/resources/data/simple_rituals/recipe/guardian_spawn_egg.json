@@ -1,0 +1,13 @@
+{
+  "type": "simple_rituals:ritual",
+  "size": 1,
+  "ingredients": [
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "minecraft:prismarine_shard"}
+  ],
+  "output": {
+    "id": "minecraft:guardian_spawn_egg",
+    "count": 1
+  },
+  "special_effect": "spawn_lightning"
+}

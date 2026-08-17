@@ -10,6 +10,5 @@
   "output": {
     "id": "minecraft:string",
     "count": 16
-  },
-  "spawn_lightning": false
+  }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "simple_rituals:ritual",
+  "size": 3,
+  "ingredients": [
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "minecraft:echo_shard"},
+    {"item": "minecraft:sculk_catalyst"},
+    {"item": "minecraft:echo_shard"},
+    {"item": "simple_rituals:empty_spawn_egg"},
+    {"item": "minecraft:echo_shard"},
+    {"item": "minecraft:sculk_catalyst"},
+    {"item": "minecraft:echo_shard"}
+  ],
+  "output": {
+    "id": "minecraft:warden_spawn_egg",
+    "count": 1
+  },
+  "special_effect": "spawn_lightning"
+}

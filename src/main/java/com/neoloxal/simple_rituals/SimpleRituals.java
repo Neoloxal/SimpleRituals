@@ -1,6 +1,7 @@
 package com.neoloxal.simple_rituals;
 
 import com.mojang.logging.LogUtils;
+import com.neoloxal.simple_rituals.advancment.ModAdvancementTriggers;
 import com.neoloxal.simple_rituals.blocks.ModBlocks;
 import com.neoloxal.simple_rituals.blocks.entity.ModBlockEntities;
 import com.neoloxal.simple_rituals.client.renderer.PedestalBlockEntityRender;
@@ -10,6 +11,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -38,6 +40,8 @@ public class SimpleRituals {
 
         ModRecipes.register(modEventBus);
 
+        ModAdvancementTriggers.register(modEventBus);
+
         modEventBus.addListener(this::addCreative);
 
         NeoForge.EVENT_BUS.register(this);
@@ -50,6 +54,10 @@ public class SimpleRituals {
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(ModBlocks.CENTRAL_PEDESTAL.get());
             event.insertAfter(ModBlocks.CENTRAL_PEDESTAL.toStack(), ModBlocks.PEDESTAL.toStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        } else if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.insertAfter(Items.EGG.getDefaultInstance(), ModItems.EMPTY_SPAWN_EGG.toStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        } else if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+            event.insertBefore(Items.ALLAY_SPAWN_EGG.getDefaultInstance(), ModItems.EMPTY_SPAWN_EGG.toStack(), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
     }
 
